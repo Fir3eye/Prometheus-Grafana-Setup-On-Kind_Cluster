@@ -2,29 +2,54 @@
 - To install Prometheus and Grafana using Helm in your kind cluster, follow these step-by-step instructions.
 ## Step-by-Step Guide
 ## Step- 1. Create a Kind Cluster (If not already running)
-- If you don't have a kind cluster set up, create one with this command:
+
+### Install Docker:
 ```
-kind create cluster --name monitoring-cluster
+sudo apt install docker.io
 ```
-- Or Update the kind.yaml file to add a new worker node.
+### Install kubectl:
 ```
-# kind-cluster-config.yaml
+sudo snap install kubectl --classic
+kubectl version --client
+Client Version: version.Info{Major:"1", Minor:"26", GitVersion:"v1.26.0", ...}
+```
+
+### Install kind:
+```
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
+
+### Create a kind cluster:
+
+```
+kind create cluster
+```
+
+### Create a Configuration File for the `Multi-Node` Cluster
+- Create a `kind.yaml` file:
+- You can find the kind configuration file here: [kind.yaml](kind.yaml).
+```
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
   - role: worker
-  - role: worker  # This is the new node you are adding
+  - role: worker
 
 ```
-- Create Cluster using yaml file
+- Create the Cluster
 ```
-kind create cluster --name my-cluster --config kind.yaml
-
+kind create cluster --config kind.yaml
 ```
-- Verify the cluster
+- Verify the nodes:
 ```
-kind get clusters
+kubectl get nodes
+```
+- Delete the Cluster
+```
+kind delete cluster
 ```
 ## Step- 2. Install Helm (If not installed)
 ```
