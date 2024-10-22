@@ -1,6 +1,9 @@
 # Prometheus-Grafana-Setup-On-Kind_Cluster
 - To install Prometheus and Grafana using Helm in your kind cluster, follow these step-by-step instructions.
+![image](https://github.com/user-attachments/assets/3d4d4501-8350-4abc-8ebf-0068992cfd57)
+
 ## Step-by-Step Guide
+
 ## Step- 1. Create a Kind Cluster (If not already running)
 
 ### Install Docker:
